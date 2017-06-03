@@ -39,8 +39,34 @@ func setCookie(w http.ResponseWriter, r *http.Request) {
 		Path:     "/",
 		Secure:   true,
 	}
-	cookieJSON := r.URL.Query().Get("cookie")
-	json.Unmarshal([]byte(cookieJSON), &cookiePackage)
+	nameParam := r.URL.Query().Get("name")
+	if len(nameParam) > 0 {
+		cookiePackage.Name = nameParam
+	}
+	valueParam := r.URL.Query().Get("value")
+	if len(valueParam) > 0 {
+		cookiePackage.Value = valueParam
+	}
+	domainParam := r.URL.Query().Get("domain")
+	if len(domainParam) > 0 {
+		cookiePackage.Domain = domainParam
+	}
+	httpOnlyParam := r.URL.Query().Get("httpOnly")
+	if httpOnlyParam == "false" {
+		cookiePackage.HttpOnly = false
+	}
+	// expiresParam := r.URL.Query().Get("expires")
+	// if len(expiresParam) > 0 {
+	// 	cookiePackage.Expires = expiresParam
+	// }
+	pathParam := r.URL.Query().Get("path")
+	if len(pathParam) > 0 {
+		cookiePackage.Path = pathParam
+	}
+	secureParam := r.URL.Query().Get("secure")
+	if secureParam == "false" {
+		cookiePackage.Secure = false
+	}
 	cookie := http.Cookie{
 		Name:     cookiePackage.Name,
 		Value:    cookiePackage.Value,
