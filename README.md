@@ -2,6 +2,8 @@
 
 Set cookies on other domains
 
+![](assets/cross-domain-cookies.png)
+
 ## Usage
 
 ```html
